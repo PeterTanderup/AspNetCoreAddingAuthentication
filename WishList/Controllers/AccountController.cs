@@ -42,7 +42,17 @@ namespace WishList.Controllers
                 Email = registerViewModel.Email,
                 UserName = registerViewModel.Email
             };
-            var result =_userManager.CreateAsync(user, registerViewModel.Password);
+            var result =_userManager.CreateAsync(user, registerViewModel.Password).Result;
+
+            if (result.Succeeded == false)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("Password", error.Description);
+                }
+
+                return View(registerViewModel);
+            }
 
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
