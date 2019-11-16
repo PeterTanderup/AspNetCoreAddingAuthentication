@@ -84,5 +84,14 @@ namespace WishList.Controllers
 
             return RedirectToAction(actionName: "Index", controllerName: "Item");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            var result = _signInManager.SignOutAsync();
+
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
+        }
     }
 }
