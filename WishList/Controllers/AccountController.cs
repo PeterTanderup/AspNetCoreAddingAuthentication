@@ -37,6 +37,13 @@ namespace WishList.Controllers
             {
                 return View(registerViewModel);
             }
+            var user = new ApplicationUser
+            {
+                Email = registerViewModel.Email,
+                UserName = registerViewModel.Email
+            };
+            var result =_userManager.CreateAsync(user, registerViewModel.Password);
+
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
