@@ -69,6 +69,11 @@ namespace WishList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
+            if (ModelState.IsValid == false)
+            {
+                return View(loginViewModel);
+            }
+
             return RedirectToAction(actionName: "Index", controllerName: "Item");
         }
     }
