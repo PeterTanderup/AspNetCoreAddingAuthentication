@@ -74,6 +74,14 @@ namespace WishList.Controllers
                 return View(loginViewModel);
             }
 
+            var result = _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, false, false).Result;
+
+            if (result.Succeeded == false)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(loginViewModel);
+            }
+
             return RedirectToAction(actionName: "Index", controllerName: "Item");
         }
     }
